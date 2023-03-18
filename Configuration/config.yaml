@@ -1,0 +1,105 @@
+# The FILES configuration is what needs to be updated each time you need to create a new Who Can Help
+# document. You will need to locate the file(s) you need to import into the program that will merge data
+# into one useful reference.
+#
+# The SIS reports are to be exported in *.xml format and then opened using MS Excel. From here they should be saved
+# as *.xlsx. The SIS reports that need to be included are:
+#      > Master Timetable (report code:                )
+#      > Special Education Report (report code:             )
+#      > ELL List (report code:            )
+#
+# The following lists are developed and maintained by curriculum leaders / teachers:
+#      > IEP Monitor List = Special Education Curriculum Lead
+#      > Contact Monitor List = Contact Teacher
+#      > ELL Monitor List = English Language Learner Curriculum Lead
+
+FILES:
+  template: "Templates/WCH Template.xlsx"
+  SIS_time_table: "/Users/work/Downloads/Reports for Who Can Help/Timetable Report Mar 10 2023.xlsx"
+  SIS_spec_ed: "/Users/work/Downloads/Reports for Who Can Help/Students with IEPs Mar 10 2023.xlsx"
+  SIS_ell: "/Users/work/Downloads/Reports for Who Can Help/2023-02-07 ESL_ELL LIST.xlsx"
+  MONITOR_spec_ed: "/Users/work/Downloads/Reports for Who Can Help/Feb 23 IEP Mon list for Staff 1.xlsx"
+  MONITOR_contact: "/Users/work/Downloads/Reports for Who Can Help/Contact List_Second Semester.xlsx"
+  MONITOR_ell: "/Users/work/OneDrive - Peel District School Board/OneDrive Desktop/ESL ELL School Data/ELL Who Can Help.xlsx"
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+# When there are staffing changes, this section of the config file will also need to be updated. The sections are
+# divided into vice principals (VPs), guidance councillors (GCs) and lead teachers (LTs). For the VPs and GCs, their
+# associated alphas are included. Note that there is both the starting and ending of the alpha responsibilities. The
+# code associated with determining which VP or GC a student is associated is primarily based on the 'Alpha_End'
+# parameter. The code will determine the length of the string and use the starting and last position letter to compare
+# the student last name with the 'Alpha_End'.
+#
+# Example of Code: last_name = 'Leichnitz' and VP1 alpha_end = 'Leh' and VP2 alpha_end = Poh
+# The steps of the code:
+#      > determine that the alpha_end is three chars long (this will be done for each VP and GC
+#      > determine the first letter of the last name
+#      > compare to first letter the last name to first letter of the alpha_end; will return true for VP1
+#      > determine the third letter of the last name
+#      > compare third letter of last name to third letter of the alpha end; will return false for VP1
+#      > compare first letter of last name to first letter of the alpha end; will return true for VP2
+#      > compare third letter of last name to third letter of the alpha end; will return true for VP2
+#      > returns VP2
+# The same logic is applied identifying the GCs.
+
+VPs: {VP1: { Alpha_Start: "Aa", Alpha_End: "Gz", Name: "Prendes" },
+      VP2: { Alpha_Start: "Ha", Alpha_End: "Oz", Name: "Kelman" },
+      VP3: { Alpha_Start: "Pa", Alpha_End: "Zz", Name: "Kantharaja" }}
+
+GCs: {GC1: {Alpha_Start: "Aa", Alpha_End: "Dz", Name: "MacGregor"},
+      GC2: {Alpha_Start: "Ea", Alpha_End: "Gz", Name: "Pinney"},
+      GC3: {Alpha_Start: "Ha", Alpha_End: "Mz", Name: "Singh"},
+      GC4: {Alpha_Start: "Na", Alpha_End: "Sz", Name: "Luksts"},
+      GC5: {Alpha_Start: "Ta", Alpha_End: "Zz", Name: "Feare"}}
+
+LTs:
+  Special_Education: "Laura Bonofiglio"
+  Contact_Teacher: "Martha Kinkead"
+  English_Language_Learners: "Brian Leichnitz"
+
+# ----------------------------------------------------------------------------------------------------------------------
+
+# The following configuration data is for each of the input files. The purpose of this data is to make
+# it easier to make adjustments to the code should the formatting of the xml / xlsx files change due to upgrades
+# or alterations to the SIS reports. The main header of each section references the associated file, and the
+# labels correspond to the data that needs to be extracted. The value for each label references the column
+# in the xlsx file that the required data is found in. For example, in the "Time Table" file, we can locate
+# the student number in column B. NOTE: This following configuration data should not be changed unless you can verify
+# that the data structure in the source file has been changed.
+
+TIME_TABLE:
+  # the timetable configuration is written in a short form s = semester, p = period; thus the code s1p3 is
+  # semester 1 period 3
+  student_number: "B"
+  student_name: "A"
+  s1p1: "I"
+  s1p2: "J"
+  s1p3: "K"
+  s1p4: "L"
+  s1p5: "M"
+  s1p6: "N"
+  s2p1: "O"
+  s2p2: "P"
+  s2p3: "Q"
+  s2p4: "R"
+  s2p5: "S"
+  s2p6: "T"
+
+IEP_REPORT:
+  student_number: "K"
+
+IEP_MONITOR:
+  student_number: "A"
+  monitor: "C"
+
+CONTACT_MONITOR:
+  student_number: "A"
+  monitor: "E"
+
+ELL_REPORT:
+  student_number: "O"
+
+ELL_MONITOR:
+  student_number: "A"
+  monitor: "L"
